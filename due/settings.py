@@ -61,17 +61,26 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+import os
+
+SITE_ROOT=os.path.join(os.path.abspath(os.path.dirname(__file__)),'..')
+
+STATIC_ROOT = os.path.join(SITE_ROOT,'static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
+
+import os
+HERE = os.path.dirname(__file__)
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    HERE + STATIC_URL,
+    ("bootstrap", os.path.join(STATIC_ROOT, 'bootstrap')),
 )
 
 # List of finder classes that know how to find static files in
@@ -107,7 +116,7 @@ ROOT_URLCONF = 'due.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'due.wsgi.application'
 
-import os
+
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
 
 INSTALLED_APPS = (
